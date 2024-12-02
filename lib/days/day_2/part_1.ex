@@ -21,10 +21,13 @@ defmodule AdventOfCode2024.Day2.Part1 do
 
   alias AdventOfCode2024.Day2
 
+  @doc """
+  Parse the input into a list of lists of integers, where each list represents a report.
+  """
   def parse_input(input) do
     input
     |> String.trim()
-    |> String.split("\n")
+    |> String.split("\n", trim: true)
     |> Enum.map(fn line ->
       line
       |> String.split()
@@ -32,29 +35,40 @@ defmodule AdventOfCode2024.Day2.Part1 do
     end)
   end
 
+  @doc """
+  Check if the levels in a report are consistent, meaning they are either all increasing or all decreasing.
+  """
   def is_report_consistent?(levels) do
+    # if the first level is less than the second, then the report is increasing
     is_increasing = Enum.at(levels, 0) <= Enum.at(levels, 1)
 
-    case is_increasing do
-      true ->
-        Enum.sort(levels) == levels
-
-      false ->
-        Enum.sort(levels, :desc) == levels
+    if is_increasing do
+      Enum.sort(levels) == levels
+    else
+      Enum.sort(levels, :desc) == levels
     end
   end
 
+  @doc """
+  Check if the levels in a report are within the range of 1 to 3 of each other.
+  """
   def are_levels_within_range?(levels) do
     levels
     |> Enum.chunk_every(2, 1, :discard)
     |> Enum.all?(fn [a, b] -> abs(a - b) in 1..3 end)
   end
 
+  @doc """
+  Check if a report is safe, meaning it is consistent and the levels are within the range of 1 to 3 of each other.
+  """
   def is_report_safe?(levels) do
     is_report_consistent?(levels) and are_levels_within_range?(levels)
   end
 
-  def are_all_reports_safe?(reports) do
+  @doc """
+  Get the number of safe reports from a list of reports.
+  """
+  def get_num_safe_reports(reports) do
     reports
     |> Enum.count(&is_report_safe?/1)
   end
@@ -62,6 +76,6 @@ defmodule AdventOfCode2024.Day2.Part1 do
   def solve do
     Day2.input_file()
     |> parse_input()
-    |> are_all_reports_safe?()
+    |> get_num_safe_reports()
   end
 end

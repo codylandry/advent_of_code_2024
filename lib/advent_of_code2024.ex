@@ -1,5 +1,5 @@
 defmodule AdventOfCode2024 do
-  alias AdventOfCode2024.{Day1}
+  alias AdventOfCode2024.{Day1, Puzzle}
 
   @puzzles [
     Day1.Part1,
@@ -19,7 +19,7 @@ defmodule AdventOfCode2024 do
       @puzzles
       |> Enum.map(fn puzzle ->
         Task.async(fn ->
-          {puzzle, puzzle.solve()}
+          {puzzle, Puzzle.solve(puzzle)}
         end)
       end)
 
@@ -34,7 +34,7 @@ defmodule AdventOfCode2024 do
 
   def run(day, part) do
     module = Module.concat([AdventOfCode2024, "Day#{day}", "Part#{part}"])
-    result = apply(module, :solve, [])
+    result = Puzzle.solve(module)
 
     IO.puts("#{module}: #{result}")
   end

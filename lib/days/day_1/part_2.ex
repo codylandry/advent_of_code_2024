@@ -1,4 +1,5 @@
 defmodule AdventOfCode2024.Day1.Part2 do
+  @behaviour AdventOfCode2024.Puzzle
   @moduledoc """
   --- Part Two ---
   Your analysis only confirmed what everyone feared: the two lists of location IDs are indeed very different.

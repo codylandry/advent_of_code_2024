@@ -21,37 +21,30 @@ defmodule AdventOfCode2024.Day1.Part1 do
 
   alias AdventOfCode2024.Day1
 
-  @doc """
-  Parses the input into a list of lists, where each inner list contains two integers from the same line of the input.
-  """
-  def parse_input(input) do
+  # Parses the input into a list of lists, where each inner list contains two integers from the same line of the input.
+  defp parse_input(input) do
     input
     |> String.split("\n")
     |> Enum.map(&String.split/1)
     |> Enum.map(&Enum.map(&1, fn i -> String.to_integer(i) end))
   end
 
-  @doc """
-  Sorts the left and right lists and pairs them up.
-  """
-  def sort_and_pair(lists) do
-    list1 =
-      lists
-      |> Enum.map(&Enum.at(&1, 0))
-      |> Enum.sort()
-
-    list2 =
-      lists
-      |> Enum.map(&Enum.at(&1, 1))
-      |> Enum.sort()
-
-    Enum.zip(list1, list2)
+  # Sorts the left and right lists and pairs them up.
+  defp sort_and_pair(lists) do
+    lists
+    |> Enum.reduce({[], []}, fn [a, b], {acc1, acc2} ->
+      {[a | acc1], [b | acc2]}
+    end)
+    |> then(fn {list1, list2} ->
+      {Enum.sort(list1), Enum.sort(list2)}
+    end)
+    |> then(fn {sorted1, sorted2} ->
+      Enum.zip(sorted1, sorted2)
+    end)
   end
 
-  @doc """
-  Calculates the total distance by summing the absolute differences between each pair.
-  """
-  def calculate_total_distance(pairs) do
+  # Calculates the total distance by summing the absolute differences between each pair.
+  defp calculate_total_distance(pairs) do
     Enum.map(pairs, fn {a, b} -> abs(a - b) end)
     |> Enum.sum()
   end

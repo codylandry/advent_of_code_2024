@@ -1,10 +1,5 @@
 defmodule AdventOfCode2024 do
-  alias AdventOfCode2024.{Day1, Puzzle}
-
-  @puzzles [
-    Day1.Part1,
-    Day1.Part2
-  ]
+  alias AdventOfCode2024.Puzzle
 
   def priv_dir, do: :code.priv_dir(:advent_of_code_2024)
 
@@ -16,7 +11,7 @@ defmodule AdventOfCode2024 do
 
   def run_all do
     tasks =
-      @puzzles
+      Puzzle.all()
       |> Enum.map(fn puzzle ->
         Task.async(fn ->
           {puzzle, Puzzle.solve(puzzle)}

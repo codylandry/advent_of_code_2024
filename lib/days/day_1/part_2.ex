@@ -31,10 +31,8 @@ defmodule AdventOfCode2024.Day1.Part2 do
 
   alias AdventOfCode2024.Day1
 
-  @doc """
-  Parses the input into a list of two lists, where the first list is the left column and the second list is the right column.
-  """
-  def parse_input(input) do
+  # Parses the input into a list of two lists, where the first list is the left column and the second list is the right column.
+  defp parse_input(input) do
     input
     |> String.split("\n")
     |> Enum.map(&String.split/1)
@@ -43,26 +41,20 @@ defmodule AdventOfCode2024.Day1.Part2 do
     |> Enum.map(fn tuple -> Tuple.to_list(tuple) end)
   end
 
-  @doc """
-  Returns a list of tuples where each tuple contains a number from the left list and the count of how many times it appears in the right list.
-  """
-  def find_similar_numbers([list1, list2]) do
+
+  # Returns a list of tuples where each tuple contains a number from the left list and the count of how many times it appears in the right list.
+  defp find_similar_numbers([list1, list2]) do
     list1
     |> Enum.map(fn number -> {number, Enum.count(list2, fn i -> i == number end)} end)
   end
 
-  @doc """
-  Calculates the similarity score by summing the product of each number and its count in the right list.
-  """
-  def calculate_similarity_score(similar_numbers) do
+  # Calculates the similarity score by summing the product of each number and its count in the right list.
+  defp calculate_similarity_score(similar_numbers) do
     similar_numbers
     |> Enum.map(fn {number, count} -> number * count end)
     |> Enum.sum()
   end
 
-  @doc """
-  Solves the puzzle by parsing the input, finding the similar numbers, and calculating the similarity score.
-  """
   def solve() do
     Day1.input_file()
     |> parse_input()

@@ -20,8 +20,6 @@ defmodule AdventOfCode2024.Day1.Part1 do
 
   alias AdventOfCode2024.Day1
 
-  def label, do: "#{__MODULE__} - list distance"
-
   @doc """
   Parses the input into a list of lists, where each inner list contains two integers from the same line of the input.
   """

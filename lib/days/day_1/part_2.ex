@@ -30,8 +30,6 @@ defmodule AdventOfCode2024.Day1.Part2 do
 
   alias AdventOfCode2024.Day1
 
-  def label, do: "#{__MODULE__} - similarity score"
-
   @doc """
   Parses the input into a list of two lists, where the first list is the left column and the second list is the right column.
   """

@@ -26,7 +26,7 @@ defmodule AdventOfCode2024 do
     results =
       tasks
       |> Task.await_many(:infinity)
-      |> Enum.map(fn {puzzle, result} -> "#{puzzle.label()}: #{result}" end)
+      |> Enum.map(fn {puzzle, result} -> "#{puzzle}: #{result}" end)
       |> Enum.join("\n")
 
     IO.puts("\nPuzzle Results:\n#{results}\n")
@@ -34,9 +34,8 @@ defmodule AdventOfCode2024 do
 
   def run(day, part) do
     module = Module.concat([AdventOfCode2024, "Day#{day}", "Part#{part}"])
-    label = apply(module, :label, [])
     result = apply(module, :solve, [])
 
-    IO.puts("#{label}: #{result}")
+    IO.puts("#{module}: #{result}")
   end
 end

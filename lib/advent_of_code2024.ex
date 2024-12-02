@@ -31,4 +31,12 @@ defmodule AdventOfCode2024 do
 
     IO.puts("\nPuzzle Results:\n#{results}\n")
   end
+
+  def run(day, part) do
+    module = Module.concat([AdventOfCode2024, "Day#{day}", "Part#{part}"])
+    label = apply(module, :label, [])
+    result = apply(module, :solve, [])
+
+    IO.puts("#{label}: #{result}")
+  end
 end

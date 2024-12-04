@@ -55,7 +55,7 @@ defmodule AdventOfCode2024.Day1.Part2 do
     |> Enum.sum()
   end
 
-  def solve() do
+  def solve do
     Day1.input_file()
     |> parse_input()
     |> find_similar_numbers()

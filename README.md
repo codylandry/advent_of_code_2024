@@ -2,6 +2,10 @@
 
 This repository contains solutions for the [Advent of Code 2024](https://adventofcode.com/2024) programming puzzles, implemented in Elixir.
 
+## Note about AI
+
+I've chosen to use AI sparingly for this project.  In my mind, AI is here to stay and has changed the way I write code forever, so why not embrace it.  That said, the spirit of advent of code is learning and the challenge of developing algorithms.  For that reason, I'm limiting myself to using AI as a reference and for helping me organize my thoughts on approaches to problems.  I definitely failed a few times, getting maybe a little too much help from AI but I'm ok with that.  Learning to leverage AI is equally interesting and important to me as developing algorithms from scratch.  This is all about having fun anyway!
+
 ## Project Structure
 
 ```

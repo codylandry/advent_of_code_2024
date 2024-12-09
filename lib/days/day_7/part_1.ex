@@ -13,6 +13,8 @@ defmodule AdventOfCode2024.Day7.Part1 do
 
   alias AdventOfCode2024.Day7
 
+  @operators ["+", "*"]
+
   @doc """
   Parses the input file into a list of tuples containing {test_value, values}.
   Example: {190, ["10", "19"]}
@@ -25,9 +27,6 @@ defmodule AdventOfCode2024.Day7.Part1 do
       {String.to_integer(test_value), String.split(values, " ")}
     end)
   end
-
-  # Available operators that can be inserted between numbers
-  def operators, do: ["+", "*"]
 
   @doc """
   Generates all possible permutations of operators for a given list size.
@@ -49,8 +48,8 @@ defmodule AdventOfCode2024.Day7.Part1 do
   Example: For values ["1", "2", "3"], generates expressions like:
   "1 + 2 + 3", "1 + 2 * 3", "1 * 2 + 3", "1 * 2 * 3"
   """
-  def get_possible_expressions(values) do
-    for permutation <- permutations(operators(), length(values) - 1) do
+  def get_possible_expressions(values, operators \\ @operators) do
+    for permutation <- permutations(operators, length(values) - 1) do
       (permutation ++ [""])
       |> Enum.zip(values)
       |> Enum.map(fn {operator, value} ->
@@ -62,6 +61,7 @@ defmodule AdventOfCode2024.Day7.Part1 do
   end
 
   # Helper functions to evaluate expressions parts with different operators
+  def evaluate_expression_part(acc, {"||", value}), do: String.to_integer("#{acc}#{value}")
   def evaluate_expression_part(acc, {"+", value}), do: acc + value
   def evaluate_expression_part(acc, {"*", value}), do: acc * value
 
@@ -88,8 +88,8 @@ defmodule AdventOfCode2024.Day7.Part1 do
   Checks if any possible combination of operators between the values can produce
   the test value when evaluated left-to-right.
   """
-  def has_successful_expression?(test_value, values) do
-    get_possible_expressions(values)
+  def has_successful_expression?(test_value, values, operators \\ @operators) do
+    get_possible_expressions(values, operators)
     |> Enum.any?(fn expression ->
       evaluate_expression(expression) == test_value
     end)
